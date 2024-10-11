@@ -1,47 +1,46 @@
-import React from "react";
 import { RiMastodonLine } from "react-icons/ri";
 import { BiRightArrow, BiLeftArrow } from "react-icons/bi";
 
-function Tasks({ data, fetchTodos, next, back }) {
+function Tasks({ data, next, back, fetchTodos }) {
   const changeStatus = async (id, status) => {
-    const res = await fetch("/api/auth/todos", {
+    const res = await fetch("/api/todos", {
       method: "PATCH",
       body: JSON.stringify({ id, status }),
       headers: { "Content-Type": "application/json" },
     });
     const data = await res.json();
-    if (data.status === "success") {
-      fetchTodos();
-    }
+    if (data.status === "success") fetchTodos();
   };
+
   return (
     <div className="tasks">
-      {data?.map((item) => {
-        <div key={item._id} className="tasks__card">
-          <span className={item.status}></span>
+      {data?.map((i) => (
+        <div key={i._id} className="tasks__card">
+          <span className={i.status}></span>
           <RiMastodonLine />
-          <h4>{item.title}</h4>
+          <h4>{i.title}</h4>
           <div>
             {back ? (
               <button
                 className="button-back"
-                onClick={() => changeStatus(item._id, back)}
+                onClick={() => changeStatus(i._id, back)}
               >
-                {" "}
-                <BiLeftArrow /> back
+                <BiLeftArrow />
+                Back
               </button>
             ) : null}
             {next ? (
               <button
                 className="button-next"
-                onClick={() => changeStatus(item._id, next)}
+                onClick={() => changeStatus(i._id, next)}
               >
-                <BiRightArrow /> next
+                Next
+                <BiRightArrow />
               </button>
             ) : null}
           </div>
-        </div>;
-      })}
+        </div>
+      ))}
     </div>
   );
 }

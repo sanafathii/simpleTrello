@@ -1,23 +1,23 @@
-import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
-import React from "react";
+import { signOut, useSession } from "next-auth/react";
+import { VscListSelection } from "react-icons/vsc";
 import { BiMessageSquareAdd } from "react-icons/bi";
 import { RxDashboard } from "react-icons/rx";
-import { VscListSelection } from "react-icons/vsc";
 import { FiLogOut } from "react-icons/fi";
 
 function Layout({ children }) {
   const { status } = useSession();
 
-  const logoutHandler = async () => {
+  const logOutHandler = () => {
     signOut();
   };
+
   return (
     <div className="container">
       <header>
-        <p>Fullstack Todo App</p>
+        <p>Botostart Todo App</p>
         {status === "authenticated" ? (
-          <button onClick={logoutHandler}>
+          <button onClick={logOutHandler}>
             Logout
             <FiLogOut />
           </button>
@@ -25,7 +25,7 @@ function Layout({ children }) {
       </header>
       <div className="container--main">
         <aside>
-          <p>wellcome 🖐</p>
+          <p>Welcome 👋</p>
           <ul>
             <li>
               <VscListSelection />
@@ -33,7 +33,7 @@ function Layout({ children }) {
             </li>
             <li>
               <BiMessageSquareAdd />
-              <Link href="/add-todo"> Add Todo</Link>
+              <Link href="/add-todo">Add Todo</Link>
             </li>
             <li>
               <RxDashboard />

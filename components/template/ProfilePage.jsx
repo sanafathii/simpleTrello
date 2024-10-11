@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { CgProfile } from "react-icons/cg";
 import ProfileForm from "../module/ProfileForm";
 import ProfileData from "../module/ProfileData";
@@ -28,7 +28,9 @@ function ProfilePage() {
       headers: { "Content-Type": "application/json" },
     });
     const data = await res.json();
+    console.log(data);
   };
+
   return (
     <div className="profile-form">
       <h2>
@@ -40,10 +42,10 @@ function ProfilePage() {
       ) : (
         <ProfileForm
           name={name}
-          setName={setName}
           lastName={lastName}
-          setLastName={setLastName}
           password={password}
+          setName={setName}
+          setLastName={setLastName}
           setPassword={setPassword}
           submitHandler={submitHandler}
         />
